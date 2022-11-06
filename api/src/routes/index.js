@@ -2,9 +2,6 @@ const { Router } = require('express');
 // const  axios = require('axios')
 // const validator = require('validator')
 // npm i validator
-// const {Dog, Temperament} = require('../db')
-// const {API_KEY} = process.env
-// const url = 'https://api.thedogapi.com/v1/breeds'
 const {getDogs} = require ('../Controllers/getDogs')
 const { getDogsById } = require ('../Controllers/getDogsByID')
 // Importar todos los routers;
@@ -16,6 +13,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+// router.use('/dogs', getDogs);
 router.get('/dogs', async (req, res) => {
     try {
         const {name} = req.query;
@@ -34,26 +32,8 @@ router.get('/dogs', async (req, res) => {
     } catch (error) {
         res.status(404).send(error.message)
     }
-})
+}) 
+router.use('/dogs/:id', getDogsById)
 
-router.get('/dogs:id', async (req, res) => {
-    try {
-      const {id} = req.params;
-      const dogsTotal = await getDogsById();
-
-      if (id) {
-        const dogById = await dogsTotal.filter((e) => e.id == id);
-        dogById.length
-          ? res.status(200).send(dogById)
-          : res.status(404).send("There are no dogs with that id");
-      }
-
-      else {
-           res.status(404).send('There are no dogs with that id')
-      }  
-    } catch (error) {
-        res.status(404).send(error.message)
-    }
-  });
 
 module.exports = router;
