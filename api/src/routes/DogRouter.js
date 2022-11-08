@@ -1,5 +1,6 @@
 const {allDogs} = require('../Controllers/allDogs');
 const {Router} = require('express');
+const {Dog, Temperament} = require('../db')
 const router = Router();
 
 
@@ -31,7 +32,7 @@ router.get('/dogs/:id', async (req, res) => {
 
     dogId.length
        ? res.status(200).send(dogId)
-       : res.status(404).send("There are no dogs with that id");
+       : res.status(404).send({error: "There are no dogs with that id"});
 
   } catch (error) {
     return res.status(404).send(error.message);
@@ -39,21 +40,78 @@ router.get('/dogs/:id', async (req, res) => {
 });
 //---------------------------------------------------------------------------------
 
+//REVISAR POST POR QUE NO AGREGA LOS TEMPERAMENTS
+router.post("/dogs", async (req, res) => {
+  const {
+      // id,
+      name,
+      height,
+      weight,
+      life_span,
+      image,
+      temperament,
+  } =  req.body; //Estos son los datos que me llegan por body
+
+  try {
+
+     if(!name /*|| !id */||!height || !weight || !life_span || !temperament) {
+        res.status(404).send({error: 'MISSING PARAMETERS'})
+      }
+      
+    
+    const createdDog = await Dog.create({
+      // id,
+      name,
+      height,
+      weight,
+      life_span,
+      image,
+      // temperament
+    });
+
+    let temperamentsDB = await Temperament.findAll({
+      where: { name: temperament },
+    });
+
+    console.log(temperamentsDB);
+    await createdDog.addTemperament(temperamentsDB);
+
+    // temperament.map(async (el) => {
+    //     try {
+    //         let temps = await Temperament.findAll({
+    //             where: { name: el },
+    //           });
+    //           await createdDog.addTemperament(temps);
+              
+    //       } catch (error) {
+    //           res.send({error: 'THE DOG COULD NOT BE CREATED'});
+    //       }
+    //   });
+
+      // res.status(201).send("Dog successfully created!!!");
+      res.status(201).send(createdDog);
+      // res.status(201).send(temperamentsDB);
+
+  } catch (error) {
+    console.log('THE DOG WASNT CREATED');
+    res.status(404).send({error: 'THE DOG WASNT CREATED'})
+  }
+});
 //---------------------------------------------------------------------------------
-// router.delete('/deleted/:id', async (req, res) => {
-//   let { id } = req.params;
+router.delete('/deleted', async (req, res) => {
+  let { name } = req.query;
 
-//   try{
-//     if(id){
-//       await Dog.destroy({
-//         where: { id: id }
-//       });
-//     }
-//     return res.status(200).send('Dog Deleted');
+  try{
+    if(name){
+      await Dog.destroy({
+        where: { name: name }
+      });
+    }
+    return res.status(200).send({success: 'Dog Deleted'});
 
-//   }catch(error){
-//     res.status(404).send('we could not erase the dog');
-//   }
-// });
+  }catch(error){
+    res.status(404).send({error: 'we could not erase the dog'});
+  }
+});
 
 module.exports = router;

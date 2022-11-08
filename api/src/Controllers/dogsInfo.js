@@ -10,6 +10,7 @@ const apiDogs = async() => {
     try{
       const dogs = await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
       const infoDogs = dogs.data.map(el => {
+      // console.log(el.temperament);
       return {
         id: el.id,
         name: el.name, 
@@ -29,6 +30,7 @@ const apiDogs = async() => {
       
     }
   }
+  // console.log(apiDogs());
   
   //Traemos las razas desde la DB
   const dbDogs = async() => {

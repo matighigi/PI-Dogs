@@ -10,8 +10,11 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     id: {
+      // type: DataTypes.INTEGER,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
+      // defaultValue: 700,
+      // autoIncrement: true,
       allowNull: false,
       primaryKey: true
     },
@@ -30,9 +33,14 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    // temperament: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // }
   },
   {
     timestamps: false
-  });
+  }
+  );
 };

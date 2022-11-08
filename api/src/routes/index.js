@@ -3,7 +3,7 @@ const { Router } = require('express');
 // npm i validator
 const DogRouter = require('./DogRouter');
 const TemperamentRouter = require('./TemperamentRouter')
-const NewDogRoute = require('./NewDogRoute')
+// const NewDogRoute = require('./NewDogRoute')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -15,7 +15,5 @@ const router = Router();
 
 router.use("/", DogRouter)
 router.use("/", TemperamentRouter)
-router.use("/", NewDogRoute)
-
 
 module.exports = router;
