@@ -67,7 +67,7 @@ router.post("/dogs", async (req, res) => {
       weight,
       life_span,
       image,
-      temperament
+      // temperament
     });
 
     
@@ -75,10 +75,11 @@ router.post("/dogs", async (req, res) => {
       where: { name: temperament },
     });
 
-    console.log(temperamentsDB);
+    // console.log(temperamentsDB);
     await createdDog.addTemperament(temperamentsDB);
   
-      res.status(201).send(createdDog);
+    console.log(createdDog);
+    res.status(201).send({success: 'DOG CREATED SUCCESSFULLY'});
     
 
   } catch (error) {
