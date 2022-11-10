@@ -41,6 +41,7 @@ router.get('/dogs/:id', async (req, res) => {
 //---------------------------------------------------------------------------------
 
 //REVISAR POST POR QUE NO AGREGA LOS TEMPERAMENTS
+//AGREGA LOS TEMPERAMENT QUE PASAMOS POR BODY UNICAMENTE CUANDO HACES UN GET PRIMERO A TEMPERAMENTS
 router.post("/dogs", async (req, res) => {
   const {
       // id,
@@ -66,31 +67,19 @@ router.post("/dogs", async (req, res) => {
       weight,
       life_span,
       image,
-      // temperament
+      temperament
     });
 
-    let temperamentsDB = await Temperament.findAll({
+    
+    const temperamentsDB = await Temperament.findAll({
       where: { name: temperament },
     });
 
     console.log(temperamentsDB);
     await createdDog.addTemperament(temperamentsDB);
-
-    // temperament.map(async (el) => {
-    //     try {
-    //         let temps = await Temperament.findAll({
-    //             where: { name: el },
-    //           });
-    //           await createdDog.addTemperament(temps);
-              
-    //       } catch (error) {
-    //           res.send({error: 'THE DOG COULD NOT BE CREATED'});
-    //       }
-    //   });
-
-      // res.status(201).send("Dog successfully created!!!");
+  
       res.status(201).send(createdDog);
-      // res.status(201).send(temperamentsDB);
+    
 
   } catch (error) {
     console.log('THE DOG WASNT CREATED');

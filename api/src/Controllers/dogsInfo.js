@@ -9,7 +9,7 @@ const apiDogs = async() => {
 
     try{
       const dogs = await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
-      const infoDogs = dogs.data.map(el => {
+      const infoDogs = await dogs.data.map(el => {
       // console.log(el.temperament);
       return {
         id: el.id,
@@ -20,7 +20,7 @@ const apiDogs = async() => {
         image: el.image.url
             ? el.image.url
             : 'https://bitsofco.de/content/images/2018/12/broken-1.png',
-        temperament: el.temperament
+        temperaments: el.temperament
       }
     })
       return infoDogs;

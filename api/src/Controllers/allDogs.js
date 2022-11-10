@@ -5,7 +5,7 @@ const {apiDogs, dbDogs} = require ('./dogsInfo')
 const allDogs = async () => {
     const infoApi = await apiDogs();
     const infoDb = await dbDogs();
-    const totalInfo = infoApi.concat(infoDb)
+    const totalInfo = await infoApi.concat(infoDb)
     return totalInfo
 }
 

@@ -5,10 +5,10 @@ const tempInfo =  async() => {
     const apiData = await apiDogs();
     // console.log(apiData)
 
-    const temperamentsDb = apiData.map(e => e.temperament)
-        .toString()
-        .trim()
-        .split(/\s*,\s*/);
+    const temperamentsDb = await apiData.map(e => e.temperaments)//
+     .toString()
+     .trim()
+     .split(/\s*,\s*/)
 
     // console.log(temperamentsDb);
     
