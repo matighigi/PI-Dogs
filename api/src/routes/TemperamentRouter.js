@@ -3,6 +3,7 @@ const {apiDogs} = require('../Controllers/dogsInfo')
 const {Router} = require('express');
 const router = Router();
 
+//Hacemos un get de todos los temperaments que nos manda la api utilizando la funcion apiDogs(),y los guardamos en la db para utilizarlos posteriormente. 
 router.get('/temperaments', async (req, res) => {
     try {
         const apiData = await apiDogs();
@@ -15,8 +16,8 @@ router.get('/temperaments', async (req, res) => {
 
         // console.log(temperamentsDb);
     
-        const filtrado = [... new Set (temperamentsDb)];
-        filtrado.forEach(e => {
+        const filter = [... new Set (temperamentsDb)];
+        filter.forEach(e => {
             Temperament.findOrCreate({
                 where: {name: e}
             })

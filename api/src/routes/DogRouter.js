@@ -3,7 +3,7 @@ const {Router} = require('express');
 const {Dog, Temperament} = require('../db')
 const router = Router();
 
-
+//Hacemos el get de todos los dogs, utilizando la funcion controller allDogs(), o traemos un dog con el nombre especifico
 router.get('/dogs', async (req, res) => {
     try {
         const {name} = req.query;
@@ -24,6 +24,7 @@ router.get('/dogs', async (req, res) => {
     }
 });
 //--------------------------------------------------------------------------------
+//Hacemos get de el dog con un ID especifico
 router.get('/dogs/:id', async (req, res) => {
   try {
     let {id} = req.params;
@@ -39,9 +40,8 @@ router.get('/dogs/:id', async (req, res) => {
   }
 });
 //---------------------------------------------------------------------------------
+//Hacemos un post de dogs pasandole por body los parametros
 
-//REVISAR POST POR QUE NO AGREGA LOS TEMPERAMENTS
-//AGREGA LOS TEMPERAMENT QUE PASAMOS POR BODY UNICAMENTE CUANDO HACES UN GET PRIMERO A TEMPERAMENTS
 router.post("/dogs", async (req, res) => {
   const {
       // id,
@@ -59,7 +59,6 @@ router.post("/dogs", async (req, res) => {
         res.status(404).send({error: 'MISSING PARAMETERS'})
       }
       
-    
     const createdDog = await Dog.create({
       // id,
       name,
@@ -67,27 +66,26 @@ router.post("/dogs", async (req, res) => {
       weight,
       life_span,
       image,
-      // temperament
     });
 
-    
     const temperamentsDB = await Temperament.findAll({
       where: { name: temperament },
     });
-
     // console.log(temperamentsDB);
     await createdDog.addTemperament(temperamentsDB);
   
-    console.log(createdDog);
+    // console.log(createdDog);
     res.status(201).send({success: 'DOG CREATED SUCCESSFULLY'});
     
-
   } catch (error) {
     console.log('THE DOG WASNT CREATED');
     res.status(404).send({error: 'THE DOG WASNT CREATED'})
   }
 });
+
 //---------------------------------------------------------------------------------
+//Hacemos un delete de un dog creado con un nombre especifico
+
 router.delete('/deleted', async (req, res) => {
   let { name } = req.query;
 

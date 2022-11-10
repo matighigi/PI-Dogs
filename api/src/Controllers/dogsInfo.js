@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Dog, Temperament } = require('../db')
 const axios = require('axios');
+const e = require('express');
 const { API_KEY } = process.env;
 
 
@@ -10,6 +11,11 @@ const apiDogs = async() => {
     try{
       const dogs = await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`);
       const infoDogs = await dogs.data.map(el => {
+
+        let temperament = []
+        if(el.temperament) {
+          temperament = el.temperament.split(", ");
+        }
       // console.log(el.temperament);
       return {
         id: el.id,
@@ -20,7 +26,7 @@ const apiDogs = async() => {
         image: el.image.url
             ? el.image.url
             : 'https://bitsofco.de/content/images/2018/12/broken-1.png',
-        temperaments: el.temperament
+        temperaments: temperament
       }
     })
       return infoDogs;

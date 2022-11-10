@@ -11,19 +11,18 @@ module.exports = (sequelize) => {
     },
     id: {
       // type: DataTypes.INTEGER,
+      // autoIncrement: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      // defaultValue: 700,
-      // autoIncrement: true,
       allowNull: false,
       primaryKey: true
     },
     height: {
-      type: DataTypes.STRING,//o INTEGER
+      type: DataTypes.STRING,
       allowNull: false
     },
     weight: {
-      type: DataTypes.STRING,//o INTEGER
+      type: DataTypes.STRING,
       allowNull: false
     },
     life_span: {

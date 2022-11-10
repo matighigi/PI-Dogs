@@ -8,14 +8,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // id: {
-    //     // type: DataTypes.INTEGER,
-    //   type: DataTypes.UUID,
-    //   defaultValue: DataTypes.UUIDV4,
-    //   // autoIncrement: true,
-    //   allowNull: true,
-    //   primaryKey: true
-    // }
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: true,
+      primaryKey: true
+    }
   },
   {
     timestamps: false
