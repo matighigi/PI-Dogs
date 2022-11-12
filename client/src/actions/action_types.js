@@ -1,1 +1,4 @@
 export const GET_DOGS = 'GET_DOGS'
+export const FILTER_CREATED = 'FILTER_CREATED'
+export const FILTER_EXISTING = 'FILTER_EXISTING'
+export const FILTER_ALL = 'FILTER_ALL'

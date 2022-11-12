@@ -1,13 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs } from "../actions";
+import { getDogs, filterCreated } from "../../actions";
 import {Link} from 'react-router-dom';
-import Card from "./Card";
+import Card from "../Card/Card";
+import Paginated from "../Paginated/Paginated";
 
 export default function Home (){
      const dispatch = useDispatch()
      const allDogs = useSelector((state) => state.dogs) //===> es lo mismo que hacer el map state toProps
+
+     const [currentPage, setCurrentPage] = useState(1)
+     const [dogsPerPage, setDogsPerPage] = useState(8)
+     const indexOfLastDog = currentPage * dogsPerPage // 8
+     const indexOfFirstDog = indexOfLastDog - dogsPerPage // 0
+     const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog)
+
+
+     const paginated = (pageNumber) => {
+        setCurrentPage(pageNumber)
+     }
+
 
      useEffect(() => {
         dispatch(getDogs()) //este tambien reemplaza lo de map dispatch y  map state
@@ -17,6 +30,10 @@ export default function Home (){
      function handleClick(e) {
         e.preventDefault();//que no se rompa al cargar
         dispatch(getDogs());
+     }
+
+     function handleFilterCreated (e) {
+        dispatch(filterCreated(e.target.value))
      }
 
      return (
@@ -36,12 +53,19 @@ export default function Home (){
                 <select>
                     <option value = 'tem'>Temperaments</option>
                 </select>
-                <select>
-                    <option>All</option>
-                    <option value = 'cre'>Created</option>
-                    <option value = 'exi'>Existing</option>
+                <select onChange={e => handleFilterCreated(e)}>
+                    <option value = 'all'>All</option>
+                    <option value = 'created'>Created</option>
+                    <option value = 'existing'>Existing</option>
                 </select>
-                {allDogs?.map((e) => {
+                <div>
+                    <Paginated
+                    dogsPerPage={dogsPerPage}
+                    allDogs={allDogs.length}
+                    paginated={paginated}
+                    />
+                </div>
+                {currentDogs?.map((e) => {
                         return(
                             <fragment>
                                 <Link to= {'/home/' + e.id}>

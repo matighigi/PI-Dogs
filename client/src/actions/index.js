@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_DOGS } from './action_types';
+import { GET_DOGS, FILTER_CREATED, FILTER_EXISTING, FILTER_ALL } from './action_types';
 
 export const getDogs = () => {
     return async function(dispatch){
@@ -10,3 +10,21 @@ export const getDogs = () => {
         })
     }
 }
+export const filterCreated = (payload) => {
+    return{
+        type: FILTER_CREATED,
+        payload
+    }
+}
+export const filterExisting = (payload) => {
+    return {
+        type: FILTER_EXISTING,
+        payload
+    }
+}
+// export const filterAll = (payload) => {
+//     return {
+//         type: FILTER_ALL,
+//         payload
+//     }
+// }

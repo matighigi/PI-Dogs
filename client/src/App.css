@@ -1,4 +1,8 @@
 .App {
+  background-color: beige;
+  background-size: auto;
+  margin: auto; 
+  height: auto; 
   text-align: center;
 }
 
