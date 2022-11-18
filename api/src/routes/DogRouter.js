@@ -50,12 +50,13 @@ router.post("/dogs", async (req, res) => {
       weight,
       life_span,
       image,
-      temperament,
+      temperaments,
+      createdInDb
   } =  req.body; //Estos son los datos que me llegan por body
 
   try {
 
-     if(!name /*|| !id */||!height || !weight || !life_span || !temperament) {
+     if(!name /*|| !id */||!height || !weight || !life_span || !temperaments) {
         res.status(404).send({error: 'MISSING PARAMETERS'})
       }
       
@@ -66,10 +67,11 @@ router.post("/dogs", async (req, res) => {
       weight,
       life_span,
       image,
+      createdInDb
     });
 
     const temperamentsDB = await Temperament.findAll({
-      where: { name: temperament },
+      where: { name: temperaments },
     });
     // console.log(temperamentsDB);
     await createdDog.addTemperament(temperamentsDB);
