@@ -1,14 +1,22 @@
 import React from "react";
+//importo los hooks que uso de react
 import { useState, useEffect } from "react";
+//importo los hooks  que uso de react-redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, filterCreated, filterExisting, orderByName, orderByWeight } from "../../actions";
+//importo las actions que uso en este componente
+import { getDogs, filterCreated, orderByName, orderByWeight, getTemperaments, filterTemps} from "../../actions";
 import {Link} from 'react-router-dom';
+//importo los componentes que uso
 import Card from "../Card/Card";
 import Paginated from "../Paginated/Paginated";
+import SearchBar from "../SearchBar/SearchBar";
+import style from './Home.module.css'
 
 export default function Home (){
      const dispatch = useDispatch()
      const allDogs = useSelector((state) => state.dogs) //===> es lo mismo que hacer el map state toProps
+     const allTemps = useSelector((state) => state.temperaments)
+    //  console.log(allTemps);
 
      const [filter, setFilter] = useState()
      const [order, setOrder] = useState('')
@@ -29,14 +37,22 @@ export default function Home (){
      }, [dispatch])
 
 
-     function handleClick(e) {
-        e.preventDefault();//que no se rompa al cargar
-        dispatch(getDogs());
-     }
+     useEffect(()=>{
+        dispatch(getTemperaments())
+    },[dispatch]);
 
-     function handleFilter (e) {
+     function handleRefresh(e) {
+        e.preventDefault()
+        dispatch(getDogs())
+     } 
+     function handleFilterCreated (e) {
         dispatch(filterCreated(e.target.value));
      }
+     
+     function handleFilterByTemp(e){
+        e.preventDefault();
+        dispatch(filterTemps(e.target.value));
+      }
 
 
      function handleOrderBy (e) {
@@ -61,34 +77,40 @@ export default function Home (){
 
      return (
         <div>
-            <Link to= '/dog'>Create Dog</Link>
-            <h1></h1>
-            <button onClick={e=> {handleClick(e)}}>
-                Reload all dogs
-            </button>
-            <div>
-                <select onChange={e => handleOrderBy(e)}>
-                    <option value='title' selected disabled>Order by</option>
-                    <option disabled>Alphabetic</option>
-                    <option value = 'asc'>A-Z</option>
-                    <option value = 'des'>Z-A</option>
-                    <option disabled>Weight</option>                    
-                    <option value = 'hea'>Heavier</option>
-                    <option value = 'lig'>Lighter</option>
-                </select>
-                {/* <select>
-                    <option value = ''>All</option>
-                    <option value = 'hea'>Heavier</option>
-                    <option value = 'lig'>Lighter</option>
-                </select> */}
-                <select>
-                    <option value = 'tem'>Temperaments</option>
-                </select>
-                <select onChange={e => handleFilter(e)}>
-                    <option value = 'all'>All</option>
-                    <option value = 'created'>Created</option>
-                    <option value = 'existing'>Existing</option>
-                </select>
+            <div className={style.NavBar}>
+                <h1 className={style.HenryDogs}><u>Henry Dogs</u></h1>
+                <div>
+                <Link to= '/dog'><button className={style.create}>Create Dog</button></Link>
+                </div>
+                <button className={style.reload} onClick={e=> {handleRefresh(e)}}>
+                    Reload all dogs
+                </button>
+            
+                <SearchBar/>
+            
+                    <div className={style.filters}>
+                        <select className={style.filter} onChange={e => handleOrderBy(e)}>
+                            <option value='default' selected disabled>Order by</option>
+                            <option disabled>Alphabetic</option>
+                            <option value = 'asc'>A-Z</option>
+                            <option value = 'des'>Z-A</option>
+                            <option disabled>Weight</option>                    
+                            <option value = 'hea'>Heavier</option>
+                            <option value = 'lig'>Lighter</option>
+                        </select>
+                        <select className={style.filter} onChange={e => handleFilterByTemp(e)}>
+                            <option hidden>Temperaments</option>
+                            {allTemps.map((e) => {
+                                return <option value={e.name} key={e.id}>{e.name}</option>
+                            })}
+                        </select>
+                        <select className={style.filter} onChange={e => handleFilterCreated(e)}>
+                            <option value = 'default' selected='defaultValue' disabled>Default</option>
+                            <option value = 'created'>Created</option>
+                            <option value = 'existing'>Existing</option>
+                        </select>
+                    </div>
+            
                 <div>
                     <Paginated
                     dogsPerPage={dogsPerPage}
@@ -96,16 +118,17 @@ export default function Home (){
                     paginated={paginated}
                     />
                 </div>
-                {currentDogs?.map((e) => {
-                        return(
-                            <fragment>
-                                <Link to= {'/home/' + e.id}>
-                                    <Card name={e.name} image={e.image}/>
-                                </Link>
-                            </fragment>
-                        )
-                    })}
             </div>
+            {currentDogs?.map((e) => {
+                    return(
+                        <fragment>
+                            <Link to= {'/home/' + e.id}>
+                                <Card name={e.name} image={e.image}/>
+                            </Link>
+                        </fragment>
+                    )
+                })}
+            
         </div>
      )
 

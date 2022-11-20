@@ -1,9 +1,11 @@
-import {GET_DOGS, FILTER_CREATED, FILTER_EXISTING, FILTER_ALL, ORDER_BY_NAME, ORDER_BY_WEIGHT, ORDER_BY_Z_A} from '../actions/action_types'
+import {GET_DOGS, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_WEIGHT, GET_NAME_DOGS, GET_TEMPERAMENTS, POST_DOG, GET_DETAIL, FILTER_BY_TEMP} from '../actions/action_types'
 
 
 const initialState = {
     allDogs: [],
-    dogs: []
+    dogs: [],
+    temperaments: [],
+    detail: []
 }
 
 
@@ -16,50 +18,19 @@ const rootReducer  = (state = initialState, action) => {
                 allDogs: action.payload,
                 dogs: action.payload
             }
-            
-        // case FILTER_CREATED:
-        //     const allDogs = state.allDogs
-        //     const createdFilter = action.payload === 'created' ? allDogs.filter(el => el.createdInDb) : allDogs.filter(el => !el.createdInDb)
-        //     return {
-        //         ...state,
-        //         dogs: createdFilter
-        //     }
-
-        // case FILTER_CREATED:
-        //     const allDogs = state.allDogs
-        //     const createdFilter = action.payload === 'created' ? allDogs.filter(el => el.createdInDb) : allDogs
-        //     return {
-        //         ...state,
-        //         dogs: createdFilter
-        //     }
-        //-------------------------------------------------
-        // case FILTER_CREATED:
-        //     const allDogs = state.allDogs
-        //     const func = allDogs.filter => {
-        //         if(action.payload === 'created') {
-        //             allDogs.filter(el => el.createdInDb)
-        //         }
-        //         if(action.payload === 'existing') {
-        //             allDogs.filter(el => !el.createdInDb)
-        //         }
-        //     }
-        //     return {
-        //         ...state,
-        //         dogs: func
-        //     }
-            //-----------------------------------------------
-        // case FILTER_EXISTING:
-        //     const existingFilter = action.payload === 'existing' ? allDogs.filter(el => !el.createdInDb) : allDogs.filter(el => el.createdInDb)
-        //     return {
-        //         ...state,
-        //         dogs: existingFilter
-        //     }
-        // case FILTER_EXISTING:
-        //     const existingFilter = action.payload === 'existing' ? allDogs.filter(el => !el.createdInDb) : allDogs
-        //     return {
-        //         ...state,
-        //         dogs: existingFilter
-        //     }
+        case FILTER_CREATED:
+            const allDogs = state.allDogs
+            const createdFilter = action.payload === 'created' ? allDogs.filter(el => el.createdInDb) : allDogs.filter(el => !el.createdInDb)
+            return {
+                ...state,
+                dogs: createdFilter
+            }
+        case FILTER_BY_TEMP:
+            const tempFilter = state.allDogs.filter(el => el.temperaments?.includes(action.payload))
+            return {
+                ...state,
+                dogs: tempFilter
+            }
         case ORDER_BY_NAME:
             // const dogs = state.dogs
             let sortedArr = state.dogs.sort((a,b) => {
@@ -92,14 +63,25 @@ const rootReducer  = (state = initialState, action) => {
                 ...state,
                 dogs: orderedDogs
             }
-            
-
-        // case FILTER_ALL:
-        //     const filterAll = action.payload === 'all' ? allDogs : allDogs
-        //     return {
-        //         ...state,
-        //         dogs: filterAll
-        //     }
+        case GET_NAME_DOGS:
+            return {
+                ...state,
+                dogs: action.payload
+            }
+        case POST_DOG:
+            return {
+                ...state
+            }
+        case GET_TEMPERAMENTS:
+            return {
+                ...state,
+                temperaments: action.payload
+            }
+        case GET_DETAIL:
+            return {
+                ...state,
+                detail: action.payload
+            }
 
         default:
             return {...state}

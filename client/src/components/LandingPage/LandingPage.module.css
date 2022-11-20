@@ -1,6 +1,37 @@
+.container {
+    background: url('https://s1.1zoom.me/big0/579/356701-admin.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
 
+.welcome{
+    width: 45vw;
+    margin: 0;
+    padding-top: 15vh;
+    padding-left: 13vw;
+    font-size: 2.5rem;
+    font-family: 'Lobster', cursive;
+    color: rgb(0, 0, 0);
+}
 
+.h4{
+    width: 70vw;
+    font-family: 'Lobster';
+    font-size:larger;
+}
 
-.div {
-    /* background-color: blueviolet; */
+.btn{
+    width: 10%;
+    height: 5%;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    font-family: 'Lobster';
+    background-color:#b09a74;
+    margin-top: 1vh;
+    margin-left: -30vw;
 }

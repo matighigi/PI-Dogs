@@ -4,21 +4,11 @@
     margin: 5px;
     border: none;
     border-radius: 5px;
-    background-color: wheat;
+    background-color: rgb(127, 167, 109);
     cursor: pointer;
     animation: fadeIn 3s;
     animation: rotating 1.5s;
   }
-  /* .selectedBtn {
-    height: 35px;
-    width: 35px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: crimson;
-    cursor: pointer;
-    animation: rotating 1.5s;
-  } */
   .pagination {
     display: flex;
     justify-content: center;

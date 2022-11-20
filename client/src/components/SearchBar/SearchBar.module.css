@@ -1,0 +1,16 @@
+.container{
+    margin-left: 60%;
+}
+
+.input{
+    font-size: larger;
+    border-radius: 7px;
+    background-color: rgb(178, 208, 114);
+    margin-right: 0.5%;
+}
+.btn{
+    font-size: larger;
+    border-radius: 7px;
+    background-color: rgb(178, 208, 114);
+    cursor: pointer;
+}
