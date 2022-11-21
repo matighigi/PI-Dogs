@@ -56,7 +56,7 @@ router.post("/dogs", async (req, res) => {
 
   try {
 
-     if(!name /*|| !id */||!height || !weight || !life_span || !temperaments) {
+     if(!name || !height || !weight || !life_span || !temperaments) {
         res.status(404).send({error: 'MISSING PARAMETERS'})
       }
       
@@ -88,20 +88,20 @@ router.post("/dogs", async (req, res) => {
 //---------------------------------------------------------------------------------
 //Hacemos un delete de un dog creado con un nombre especifico
 
-router.delete('/deleted', async (req, res) => {
-  let { name } = req.query;
+// router.delete('/deleted', async (req, res) => {
+//   let { name } = req.query;
 
-  try{
-    if(name){
-      await Dog.destroy({
-        where: { name: name }
-      });
-    }
-    return res.status(200).send({success: 'Dog Deleted'});
+//   try{
+//     if(name){
+//       await Dog.destroy({
+//         where: { name: name }
+//       });
+//     }
+//     return res.status(200).send({success: 'Dog Deleted'});
 
-  }catch(error){
-    res.status(404).send({error: 'we could not erase the dog'});
-  }
-});
+//   }catch(error){
+//     res.status(404).send({error: 'we could not erase the dog'});
+//   }
+// });
 
 module.exports = router;
