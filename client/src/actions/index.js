@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_DOGS, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_WEIGHT, GET_NAME_DOGS, GET_TEMPERAMENTS, POST_DOG, GET_DETAIL, FILTER_BY_TEMP} from './action_types';
+import { GET_DOGS, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_WEIGHT, GET_NAME_DOGS, GET_TEMPERAMENTS, POST_DOG, GET_DETAIL, FILTER_BY_TEMP,/* DELETE_DOG*/} from './action_types';
 
 export const getDogs = () => {
     return async function(dispatch){
@@ -85,3 +85,16 @@ export const getDetail = (id) => {
         }
     }
 }
+// export const deleteDog = (name) => {
+//     return async function (dispatch) {
+//         try {
+//             var json = await axios.delete(`http://localhost:3001/dogs?name=${name}`)
+//             return dispatch({
+//                 type: DELETE_DOG,
+//                 payload: json.data.dog
+//             })
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+// }

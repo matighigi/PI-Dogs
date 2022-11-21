@@ -106,8 +106,8 @@ export default function Home (){
                         </select>
                         <select className={style.filter} onChange={e => handleFilterCreated(e)}>
                             <option value = 'default' selected='defaultValue' disabled>Default</option>
-                            <option value = 'created'>Created</option>
                             <option value = 'existing'>Existing</option>
+                            <option value = 'created'>Created</option>
                         </select>
                     </div>
             
@@ -119,16 +119,17 @@ export default function Home (){
                     />
                 </div>
             </div>
-            {currentDogs?.map((e) => {
-                    return(
-                        <fragment>
-                            <Link to= {'/home/' + e.id}>
-                                <Card name={e.name} image={e.image}/>
-                            </Link>
-                        </fragment>
-                    )
-                })}
-            
+            <div className={style.container}>
+                {currentDogs?.map((e) => {
+                        return(
+                            <fragment>
+                                <Link to= {'/home/' + e.id} className={style.link}>
+                                    <Card name={e.name} image={e.image} temperaments={e.temperaments} weight={e.weight}/>
+                                </Link>
+                            </fragment>
+                        )
+                    })}
+            </div>
         </div>
      )
 

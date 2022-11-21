@@ -11,11 +11,17 @@ function validate(input) {
     if(!input.name){
         errors.name = 'A name is required'
     }
-    else if(!input.height){
-        errors.height = 'A height is required'
+    else if(!input.minHeight){
+        errors.minHeight = 'A MinHeight is required'
     }
-    else if(!input.weight){
-        errors.weight = 'A weight is required'
+    else if(!input.maxHeight){
+        errors.maxHeight = 'A MaxHeight is required'
+    }
+    else if(!input.minWeight){
+        errors.minWeight = 'A MinWeight is required'
+    }
+    else if(!input.maxWeight){
+        errors.maxWeight = 'A MaxWeight is required'
     }
     else if(!input.life_span){
         errors.life_span = 'A life_span is required'
@@ -41,8 +47,10 @@ export default function DogCreate() {
 
     const [input, setInput] = useState({
         name: "",
-        height: "",
-        weight: "",
+        minHeight: "",
+        maxHeight: "",
+        minWeight: "",
+        maxWeight: "",
         life_span: "",
         image: "",
         temperaments: []
@@ -70,17 +78,20 @@ export default function DogCreate() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const avgHeight = (Number(input.minHeight) + Number(input.maxHeight)) / 2
+        const avgWeight = (Number(input.minWeight) + Number(input.maxWeight)) / 2
+        const img = input.image || 'https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg'
+        const dog = {
+            name: input.name,
+            height: avgHeight.toFixed(2),
+            weight: avgWeight.toFixed(2),
+            life_span: input.life_span,
+            temperaments: input.temperaments,
+            image: img
+        }
         console.log(input)
-        dispatch(postDog(input))
+        dispatch(postDog(dog))
         alert('Dog Created')
-        setInput({
-            name: "",
-            height: "",
-            weight: "",
-            life_span: "",
-            image: "",
-            temperaments: []
-        })
         history.push('/home')
     }
 
@@ -92,67 +103,86 @@ export default function DogCreate() {
     }
 
     return(
-        <div>
-            <Link to = '/home'>
-                <button>Back</button>
-            </Link>
+        <div className={style.body}>
+        <div className={style.container}>
             <h1>Create your Dog</h1>
-            <form onSubmit={e => handleSubmit(e)}>
+            <Link to = '/home'>
+                <button className={style.btnBack}>Back</button>
+            </Link>
+            <form onSubmit={e => handleSubmit(e)} className={style.form}>
                 <div>
                     <label>Name:</label>
-                    <input type= 'text' value={input.name} name= "name" onChange={e => handleChange(e)}/>
+                    <input className= {style.input} type= 'text' value={input.name} name= "name" onChange={e => handleChange(e)}/>
                     {errors.name && (
-                        <p className='error'>{errors.name}</p>
+                        <p className={style.error}>{errors.name}</p>
                     )}
                 </div>
                 <div>
-                    <label>Height:</label>
-                    <input type= 'text' value={input.height} name= 'height' onChange={e => handleChange(e)}/>
-                    {errors.height && (
-                        <p className='error'>{errors.height}</p>
+                    <label>Min-Height:</label>
+                    <input className= {style.input} type= 'text' value={input.minHeight} name= 'minHeight' onChange={e => handleChange(e)}/>
+                    <label> cm</label>
+                    {errors.minHeight && (
+                        <p className={style.error}>{errors.minHeight}</p>
                     )}
                 </div>
                 <div>
-                    <label>Weight:</label>
-                    <input type= 'text' value={input.weight} name= 'weight' onChange={e => handleChange(e)}/>
-                    {errors.weight && (
-                        <p className='error'>{errors.weight}</p>
+                    <label>Max-Height:</label>
+                    <input className= {style.input} type= 'text' value={input.maxHeight} name= 'maxHeight' onChange={e => handleChange(e)}/>
+                    <label> cm</label>
+                    {errors.maxHeight && (
+                        <p className={style.error}>{errors.maxHeight}</p>
+                    )}
+                </div>
+                <div>
+                    <label>Min-Weight:</label>
+                    <input className= {style.input} type= 'text' value={input.minWeight} name= 'minWeight' onChange={e => handleChange(e)}/>
+                    <label> kg</label>
+                    {errors.minWeight && (
+                        <p className={style.error}>{errors.minWeight}</p>
+                    )}
+                </div>
+                <div>
+                    <label>Max-Weight:</label>
+                    <input className= {style.input} type= 'text' value={input.maxWeight} name= 'maxWeight' onChange={e => handleChange(e)}/>
+                    <label> kg</label>
+                    {errors.maxWeight && (
+                        <p className={style.error}>{errors.maxWeight}</p>
                     )}
                 </div>
                 <div>
                     <label>Life_span:</label>
-                    <input type= 'text' value={input.life_span} name= 'life_span' onChange={e => handleChange(e)}/>
+                    <input className= {style.input} type= 'text' value={input.life_span} name= 'life_span' onChange={e => handleChange(e)}/>
+                    <label> years</label>
                     {errors.life_span && (
-                        <p className='error'>{errors.life_span}</p>
+                        <p className={style.error}>{errors.life_span}</p>
                     )}
                 </div>
                 <div>
                     <label>Image:</label>
-                    <input type= 'text' value={input.image} name= 'image' onChange={e => handleChange(e)}/>
+                    <input className= {style.input} type= 'text' value={input.image} name= 'image' onChange={e => handleChange(e)}/>
                     {errors.image && (
-                        <p className='error'>{errors.image}</p>
+                        <p className={style.error}>{errors.image}</p>
                     )}
                 </div>
                 <p></p>
-                <select onChange={(e) => handleSelect(e)}>
+                <select onChange={(e) => handleSelect(e)} className={style.select}>
                     <option hidden>Temperaments</option>
                     {temps?.map((e) => {
                        return <option value = {e.name} key={e.id}>{e.name}</option>
                     })}
                 </select>
                 <div>
-                {/* <ul><li className={style.li}>{input.temperaments.map(el => el + ' ,')}</li></ul> */}
                 <p></p>
-                <button type='submit'>Create Dog</button>
+                <button type='submit' className={style.btnCreate}>Create Dog</button>
                 </div>
             </form>
 
             {input.temperaments.map(el => 
-                <div>
-                    <p>{el}</p>
-                    <button onClick={() => handleDelete(el)}>X</button>
+                <div className={style.temperaments}>
+                    <button onClick={() => handleDelete(el)} className={style.temps}>{el}</button>
                 </div> 
                 )}
+        </div>
         </div>
     )
 }

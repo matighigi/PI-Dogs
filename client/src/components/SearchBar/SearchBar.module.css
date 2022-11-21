@@ -5,12 +5,14 @@
 .input{
     font-size: larger;
     border-radius: 7px;
-    background-color: rgb(178, 208, 114);
+    /* background-color: rgb(178, 208, 114); */
+    background-color: rgba(208, 130, 114, 0.978);
     margin-right: 0.5%;
 }
 .btn{
     font-size: larger;
     border-radius: 7px;
-    background-color: rgb(178, 208, 114);
+    /* background-color: rgb(178, 208, 114); */
+    background-color: rgba(208, 130, 114, 0.978);
     cursor: pointer;
 }

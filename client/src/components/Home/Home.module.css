@@ -1,7 +1,8 @@
 .HenryDogs{
     font-family: 'Lobster', cursive;
     font-size:xx-large;
-    color: rgb(104, 125, 93);
+    /* color: rgb(115, 131, 76); */
+    color: #a53e3a;;
 }
 
 .create{
@@ -12,7 +13,7 @@
     height: 3%;
     border-radius: 15px;
     cursor: pointer;
-    background-color: rgb(200, 210, 179);
+    background-color: rgb(235, 154, 133);
 }
 
 .reload{
@@ -23,7 +24,8 @@
     height: 5%;
     border-radius: 5px;
     cursor: pointer;
-    background-color: rgb(178, 208, 114);
+    /* background-color: rgb(178, 208, 114); */
+    background-color: rgb(205, 145, 133);
 }
 
 .filters{
@@ -35,14 +37,31 @@
     margin-left: 1%;
     font-family: 'Lobster', cursive;
     border-radius: 4px;
-    background-color: rgb(178, 208, 114);
+    /* background-color: rgb(178, 208, 114); */
+    background-color: rgb(205, 145, 133);
 }
 
 .NavBar{
-    /* background-color: rgba(239, 227, 138, 0.773); */
-    background: url(https://img.freepik.com/vector-premium/huellas-animales-color-agua-dibujados-mano-aislados-silueta-huella-pata_476141-977.jpg?w=2000);
+    /* background: url(https://img.freepik.com/vector-premium/huellas-animales-color-agua-dibujados-mano-aislados-silueta-huella-pata_476141-977.jpg?w=2000); */
+    background: url(https://thumbs.gfycat.com/DefenselessAmusingIberianmidwifetoad-max-1mb.gif);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
+    /* background-size:80%;
+    margin-right: -10%;
+    margin-left: -10%; */
     margin-top: -1.6%;
+}
+
+.container{
+    display: flex;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 1%;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
 }

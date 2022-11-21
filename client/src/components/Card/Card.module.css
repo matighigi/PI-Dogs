@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* background: linear-gradient(135deg,#e3ac2cf7, #89a789); */
+    background: linear-gradient(135deg,#dc8a84f7, #c0d2c0);
+    width: 350px;
+    height: 400px;
+    place-content: center;
+    place-items: center;
+    border-radius: 30px;
+    box-shadow: 20px 10px 10px rgba(130, 105, 22, 0.566);
+}
+
+.name{
+    font-family: 'Lobster', cursive;
+}

@@ -2,12 +2,12 @@
     height: 35px;
     width: 35px;
     margin: 5px;
-    border: none;
     border-radius: 5px;
-    background-color: rgb(127, 167, 109);
+    /* background-color: rgb(108, 161, 84); */
+    /* background: url(https://img.freepik.com/vector-gratis/fondo-degradado-tonos-verdes_23-2148380476.jpg?w=360); */
+    background: linear-gradient(135deg,#e0726af7, #dce9dc);
+    border: none;
     cursor: pointer;
-    animation: fadeIn 3s;
-    animation: rotating 1.5s;
   }
   .pagination {
     display: flex;
