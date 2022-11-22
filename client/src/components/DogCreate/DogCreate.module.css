@@ -56,6 +56,7 @@
     background-color: rgba(194, 205, 194, 0.934);
     border-radius: 30px;
     font-size: large;
+    cursor: pointer;
 }
 
 .temperaments {

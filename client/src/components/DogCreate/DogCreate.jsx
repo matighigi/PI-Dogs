@@ -26,9 +26,6 @@ function validate(input) {
     else if(!input.life_span){
         errors.life_span = 'A life_span is required'
     }
-    else if(!input.image){
-        errors.image = 'A image is required'
-    }
     return errors
 }
 
@@ -38,7 +35,8 @@ export default function DogCreate() {
     const dispatch = useDispatch()
     const history = useHistory()
     const temps = useSelector((state) => state.temperaments)
-    console.log(temps)
+    // console.log(temps)   
+
     const [errors, setErrors] = useState({})    
 
       useEffect(() => {
@@ -109,7 +107,7 @@ export default function DogCreate() {
             <Link to = '/home'>
                 <button className={style.btnBack}>Back</button>
             </Link>
-            <form onSubmit={e => handleSubmit(e)} className={style.form}>
+            <form onSubmit={e => handleSubmit(e)} className={style.form} autocomplete="off">
                 <div>
                     <label>Name:</label>
                     <input className= {style.input} type= 'text' value={input.name} name= "name" onChange={e => handleChange(e)}/>
@@ -158,11 +156,8 @@ export default function DogCreate() {
                     )}
                 </div>
                 <div>
-                    <label>Image:</label>
+                    <label>Image(url):</label>
                     <input className= {style.input} type= 'text' value={input.image} name= 'image' onChange={e => handleChange(e)}/>
-                    {errors.image && (
-                        <p className={style.error}>{errors.image}</p>
-                    )}
                 </div>
                 <p></p>
                 <select onChange={(e) => handleSelect(e)} className={style.select}>
@@ -173,7 +168,7 @@ export default function DogCreate() {
                 </select>
                 <div>
                 <p></p>
-                <button type='submit' className={style.btnCreate}>Create Dog</button>
+                <button type='submit' className={style.btnCreate} disabled={!input.name || !input.minHeight || !input.maxHeight || !input.minWeight || !input.maxWeight || !input.life_span}>Create Dog</button>
                 </div>
             </form>
 

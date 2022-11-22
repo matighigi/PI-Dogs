@@ -10,8 +10,6 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     id: {
-      // type: DataTypes.INTEGER,
-      // autoIncrement: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
