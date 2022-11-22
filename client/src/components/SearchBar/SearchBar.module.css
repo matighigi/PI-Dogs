@@ -6,13 +6,13 @@
     font-size: larger;
     border-radius: 7px;
     /* background-color: rgb(178, 208, 114); */
-    background-color: rgba(208, 130, 114, 0.978);
+    background-color: rgba(235, 153, 133, 0.803);
     margin-right: 0.5%;
 }
 .btn{
     font-size: larger;
     border-radius: 7px;
     /* background-color: rgb(178, 208, 114); */
-    background-color: rgba(208, 130, 114, 0.978);
+    background-color: rgba(235, 153, 133, 0.784);
     cursor: pointer;
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../../actions";
 import { useEffect } from "react";
+import style from './Detail.module.css'
 
 export default function Detail(props) {
     console.log(props);
@@ -15,21 +16,23 @@ export default function Detail(props) {
     const myDog = useSelector((state) => state.detail)
 
     return (
-        <div>
+        <div className={style.body}>
+        <div className={style.container}>
             <Link to= '/home'>
-                <button>Back</button>
+                <button className={style.btn}>Back</button>
             </Link>
             {
                 myDog.length > 0 ? 
                 <div>
-                    <h2>Hi, I Am {myDog[0].name}!</h2>
-                    <img src = {myDog[0].img ? myDog[0].img : myDog[0].image} alt='' width='500px' height='700px'/>
-                    <h2>Average height: {myDog[0].height} cm</h2>
-                    <h2>Average weight: {myDog[0].weight} kg</h2>
-                    <h2>Life-span: {myDog[0].life_span}</h2>
-                    <h4>Temperaments: {!myDog[0].createdInDb ? myDog[0].temperaments +'  ' : myDog[0].temperaments.map(el => el.name + ', ')}</h4>
-                </div> : <p>Loading..</p>
+                    <h3>Hi, I Am <u>{myDog[0].name}</u>!</h3>
+                    <img src = {myDog[0].img ? myDog[0].img : myDog[0].image} alt='' width='300px' height='300px'/>
+                    <h3><u>Average height:</u> {myDog[0].height} cm</h3>
+                    <h3><u>Average weight:</u> {myDog[0].weight} kg</h3>
+                    <h3><u>Life-span:</u> {myDog[0].life_span} years</h3>
+                    <h4><u>Temperaments:</u> {!myDog[0].createdInDb ? myDog[0].temperaments.map(el => ` ${el} -`) : myDog[0].temperaments.map(el => el.name + ' - ')}</h4>
+                </div> : <div className={style.loading}><p>Loading..</p></div>
             }
+        </div>
         </div>
     )
 }

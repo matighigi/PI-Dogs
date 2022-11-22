@@ -2,10 +2,9 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* background: linear-gradient(135deg,#e3ac2cf7, #89a789); */
     background: linear-gradient(135deg,#dc8a84f7, #c0d2c0);
     width: 350px;
-    height: 400px;
+    height: 425px;
     place-content: center;
     place-items: center;
     border-radius: 30px;
@@ -14,4 +13,9 @@
 
 .name{
     font-family: 'Lobster', cursive;
+}
+
+.img{
+    border-radius: 10px;
+    width: 250px;
 }

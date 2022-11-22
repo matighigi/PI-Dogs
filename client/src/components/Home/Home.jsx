@@ -78,6 +78,7 @@ export default function Home (){
      return (
         <div>
             <div className={style.NavBar}>
+            <div className={style.gif}>
                 <h1 className={style.HenryDogs}><u>Henry Dogs</u></h1>
                 <div>
                 <Link to= '/dog'><button className={style.create}>Create Dog</button></Link>
@@ -119,8 +120,9 @@ export default function Home (){
                     />
                 </div>
             </div>
+            </div>
             <div className={style.container}>
-                {currentDogs?.map((e) => {
+                {currentDogs.length > 0 ? currentDogs.map((e) => {
                         return(
                             <fragment>
                                 <Link to= {'/home/' + e.id} className={style.link}>
@@ -128,7 +130,8 @@ export default function Home (){
                                 </Link>
                             </fragment>
                         )
-                    })}
+                    }) : <div className={style.loading}><p>Loading...</p></div>
+                    }
             </div>
         </div>
      )
