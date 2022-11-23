@@ -5,7 +5,7 @@ import {postDog, getTemperaments} from "../../actions/index";
 import { useSelector, useDispatch } from 'react-redux';
 import style from './DogCreate.module.css'
 
-
+//creamos la funcion validate para cargar los errores referidos al input y posteriormente renderizarlos
 function validate(input) {
     let errors = {};
     if(!input.name){
@@ -29,20 +29,25 @@ function validate(input) {
     return errors
 }
 
-
+//creamos el componente DogCreate
 export default function DogCreate() {
-    
+    //asignamos el useDispatch() a la constante dispatch
     const dispatch = useDispatch()
+    //asignamos el useHistory() a la constante history
     const history = useHistory()
+    //nos traemos el estado temperaments del reducer
     const temps = useSelector((state) => state.temperaments)
     // console.log(temps)   
 
+    //iniciamos un estado de errors para hacer uso de el con el validate
     const [errors, setErrors] = useState({})    
 
+    //despachamos la accion getTemperaments de las actions
       useEffect(() => {
         dispatch(getTemperaments())
     }, [dispatch]);
 
+    //iniciamos un estado con los inputs que requerimos en el form
     const [input, setInput] = useState({
         name: "",
         minHeight: "",
@@ -55,6 +60,7 @@ export default function DogCreate() {
     })
     
   
+    //creamos un handleChange para manejar los estados input y errors de acuerdo a los valores que reciba o no
     const handleChange = (e) => {
         setInput({
             ...input,
@@ -67,6 +73,7 @@ export default function DogCreate() {
         console.log(input)
     }
 
+    //creamos un handleSelect para manejar el estado input en el select de temperaments
     const handleSelect = (e) => {
         setInput({
             ...input,
@@ -74,11 +81,15 @@ export default function DogCreate() {
         })
     }
 
+    //creamos un handleSubmit para manejar la informacion al enviarla
     const handleSubmit = (e) => {
         e.preventDefault()
+        //calculamos la altura y peso promedio de acuerdo a lo recibido en el input
         const avgHeight = (Number(input.minHeight) + Number(input.maxHeight)) / 2
         const avgWeight = (Number(input.minWeight) + Number(input.maxWeight)) / 2
+        //utilizamos la const img para guardar la imagen enviada en el input o en el caso de no recibirla, enviar una por defecto
         const img = input.image || 'https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg'
+        //creamos el objeto dog en donde le asignamos a cada propiedad el objeto recibido en el input
         const dog = {
             name: input.name,
             height: avgHeight.toFixed(2),
@@ -88,11 +99,14 @@ export default function DogCreate() {
             image: img
         }
         console.log(input)
+        //despachamos la accion postDog de actions pasandole por parametro el objeto Dog, con la informacion del perro a crearse
         dispatch(postDog(dog))
+        //configuramos una alerta que informe que el perro ha sido creado correctamente y nos envie, atravez del history, nuevamente al home
         alert('Dog Created')
         history.push('/home')
     }
 
+    //creamos un handleDelete para poder eliminar los temperamentos que seleccionamos en el select, sin necesidad de recargar la pagina
     const handleDelete = (e) => {
         setInput({
             ...input,

@@ -73,7 +73,7 @@
 }
 
 .loading{
-    background: linear-gradient(135deg,#e0726aa2, #dce9dc9a);
+    background: linear-gradient(135deg,#e0726a, #dce9dc);
     border-radius: 30px;
     font-family: 'Lobster', cursive;
     font-size:xx-large;

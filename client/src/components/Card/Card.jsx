@@ -2,7 +2,7 @@ import React from "react";
 import style from './Card.module.css'
 
 
-
+//creamos el componente card, pasandole por propiedades aquellas que queremos renderizar
 export default function Card({name, image, temperaments, weight}) {
     return (
         <div className={style.container}>

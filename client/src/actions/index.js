@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_DOGS, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_WEIGHT, GET_NAME_DOGS, GET_TEMPERAMENTS, POST_DOG, GET_DETAIL, FILTER_BY_TEMP,/* DELETE_DOG*/} from './action_types';
 
+//me traigo todos los perros de la ruta del back
 export const getDogs = () => {
     return async function(dispatch){
         var json = await axios('http://localhost:3001/dogs');
@@ -10,6 +11,7 @@ export const getDogs = () => {
         })
     }
 }
+//me traigo un perro especifico con el nombre de la ruta del back
 export const getNameDogs = (name) => {
     return async function(dispatch){
         try {
@@ -24,6 +26,7 @@ export const getNameDogs = (name) => {
         
     }
 }
+//me traigo todos los temperamentos de la ruta del back
 export const getTemperaments = () => {
     return async function (dispatch) {
         const json = await axios('http://localhost:3001/temperaments')
@@ -36,7 +39,7 @@ export const getTemperaments = () => {
     }
 }
 // console.log(getTemperaments());
-
+//me traigo el post de la ruta del back
 export const postDog = (payload) => {
     return async function (dispatch) {
         const response = await axios.post('http://localhost:3001/dogs', payload)
@@ -48,6 +51,7 @@ export const postDog = (payload) => {
         })
     }
 }
+//creo las acciones de los filtros
 export const filterCreated = (payload) => {
     return{
         type: FILTER_CREATED,
@@ -60,6 +64,7 @@ export const filterTemps = (payload) => {
         payload
     }
 }
+//creo las acciones de los ordenamientos
 export const orderByName = (payload) => {
     return {
         type: ORDER_BY_NAME,
@@ -72,6 +77,7 @@ export const orderByWeight = (payload) => {
         payload
     }
 }
+//me traigo el detalle de un perro en especifico
 export const getDetail = (id) => {
     return async function (dispatch) {
         try {

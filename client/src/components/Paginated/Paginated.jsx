@@ -1,11 +1,15 @@
 import React from "react";
 import style from './Paginated.module.css'
 
-export default function Paginated({dogsPerPage, allDogs, paginated, currentPage}) {
+//creamos el componente paginado pasandole por parametros a los perros por pagina, todos los perros y la funcion paginado de Home
+export default function Paginated({dogsPerPage, allDogs, paginated}) {
+
+    //creamos un array llamado pageNumbers
     const pageNumbers = [];
 
+
     for(let i = 1; i <= Math.ceil(allDogs/dogsPerPage); i++) {
-        pageNumbers.push(i)
+        pageNumbers.push(i)//pusheamos en el array pageNumbers todos los numeros i siempre que i sea menor o igual al cociente redondeado entre todos los perros y los perros por pagina
     }
 
 

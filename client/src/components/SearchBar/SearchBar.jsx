@@ -4,16 +4,21 @@ import { useDispatch } from "react-redux";
 import { getNameDogs } from "../../actions";
 import style from './SearchBar.module.css'
 
+//creamos el componente SearchBar
 export default function SearchBar() {
+    //asignamos el useDispactch() a dispatch
     const dispatch = useDispatch()
+    //configuramos un estado name
     const [name, setName] = useState('')
 
 
+    //creamos un handleInputChange para manejar el estado name con el value recibido en el input
     const handleInputChange = (e) => {
         e.preventDefault()
         setName(e.target.value)
         console.log(name)
     }
+    //creamos un handleSubmit para despachar la accion getNameDogs de actions pasandole el valor name del estado recibido en el input
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(getNameDogs(name))

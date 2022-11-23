@@ -12,49 +12,66 @@ import Paginated from "../Paginated/Paginated";
 import SearchBar from "../SearchBar/SearchBar";
 import style from './Home.module.css'
 
+//creamos el componente Home
 export default function Home (){
+     //asignamos el useDispatch() a la constante dispatch
      const dispatch = useDispatch()
-     const allDogs = useSelector((state) => state.dogs) //===> es lo mismo que hacer el map state toProps
+     //nos traemos los estados dogs y temperaments del reducer
+     const allDogs = useSelector((state) => state.dogs)
      const allTemps = useSelector((state) => state.temperaments)
-    //  console.log(allTemps);
+     //  console.log(allTemps);
 
+     //configuramos los estados para los filtros
      const [filter, setFilter] = useState()
+     //configuramos los estados para los ordenamientos
      const [order, setOrder] = useState('')
-     const [currentPage, setCurrentPage] = useState(1)
-     const [dogsPerPage, setDogsPerPage] = useState(8)
-     const indexOfLastDog = currentPage * dogsPerPage // 8
-     const indexOfFirstDog = indexOfLastDog - dogsPerPage // 0
+
+     //configuramos los estados para el paginado
+     const [currentPage, setCurrentPage] = useState(1)//en una pagina
+     const [dogsPerPage, setDogsPerPage] = useState(8)//renderizar 8 perros
+     //sacamos los indices del ultimo y primer perro
+     const indexOfLastDog = currentPage * dogsPerPage 
+     const indexOfFirstDog = indexOfLastDog - dogsPerPage
+     //sacamos los perros a renderizar por pagina
      const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog)
 
 
+     //creamos paginated para manejar el estado de de la pagina actual y en base de eso renderizar los perros correctos
      const paginated = (pageNumber) => {
         setCurrentPage(pageNumber)
      }
 
 
+     //despachamos la accion getDogs() de las actions
      useEffect(() => {
-        dispatch(getDogs()) //este tambien reemplaza lo de map dispatch y  map state
+        dispatch(getDogs())
      }, [dispatch])
 
 
+     //despachamos la accion getTemperaments() de las actions
      useEffect(()=>{
         dispatch(getTemperaments())
     },[dispatch]);
 
+    //creamos handleRefresh para recargar todos los perros nuevamente
      function handleRefresh(e) {
         e.preventDefault()
         dispatch(getDogs())
      } 
+
+     //creamos handleFilterCreated para despachar la accion filterCreated() de actions
      function handleFilterCreated (e) {
         dispatch(filterCreated(e.target.value));
      }
      
+     //cramos handleFilterByTemp para despachar la accion filterTems() de actions
      function handleFilterByTemp(e){
         e.preventDefault();
         dispatch(filterTemps(e.target.value));
       }
 
 
+     //creamos handleOrderBy para despachar orderByName() y orderByWeight() y para manejar el estado de pagina actual, orden y filtros
      function handleOrderBy (e) {
         const val = e.target.value;
         if(val.includes('asc')) {

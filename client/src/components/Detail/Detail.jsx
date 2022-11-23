@@ -5,14 +5,18 @@ import { getDetail } from "../../actions";
 import { useEffect } from "react";
 import style from './Detail.module.css'
 
+//creamos el componente Detail para acceder en cada perro respectivamente, pasandole como argumento las propiedades a renderizar
 export default function Detail(props) {
     console.log(props);
+    //asignamos el useDispach() al la constante 'dispatch'
     const dispatch = useDispatch()
 
+    //despachamos la accion getDetail traida de las 'actions' pasandole por argumento un id especifico
     useEffect(() => {
         dispatch(getDetail(props.match.params.id))
     },[dispatch])
 
+    //traemos el estado detail del reducer 
     const myDog = useSelector((state) => state.detail)
 
     return (
