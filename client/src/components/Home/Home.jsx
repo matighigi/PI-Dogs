@@ -21,10 +21,10 @@ export default function Home (){
      const allTemps = useSelector((state) => state.temperaments)
      //  console.log(allTemps);
 
-     //configuramos los estados para los filtros
-     const [filter, setFilter] = useState()
-     //configuramos los estados para los ordenamientos
-     const [order, setOrder] = useState('')
+     //configuramos los estados para setear los filtros y posteriormente resetear los mismos y los ordenamientos
+     const [refresh, setRefresh] = useState()
+     //configuramos el estado para setear los ordenamientos
+     const [order, setOrder] = useState()
 
      //configuramos los estados para el paginado
      const [currentPage, setCurrentPage] = useState(1)//en una pagina
@@ -51,51 +51,51 @@ export default function Home (){
      //despachamos la accion getTemperaments() de las actions
      useEffect(()=>{
         dispatch(getTemperaments())
-    },[dispatch]);
+    }, [dispatch]);
 
-    //creamos handleRefresh para recargar todos los perros nuevamente y resetear los filtros al valor default
+    //creamos handleRefresh para recargar todos los perros nuevamente y resetear los filtros y ordenamientos al valor default
      function handleRefresh(e) {
         e.preventDefault()
         dispatch(getDogs())
-        setFilter('default')//seteamos el estado con el valor default para resetear filtros y ordenamientos
-        setCurrentPage(1)//seteamos el estado con el valor de la pagina que queremos redireccionar
+        setRefresh('default')//seteamos el estado con el valor default para resetear filtros y ordenamientos
+        setCurrentPage(1)//seteamos el estado con el valor de la pagina que queremos renderizar
      } 
 
      //creamos handleFilterCreated para despachar la accion filterCreated() de actions
      function handleFilterCreated (e) {
         dispatch(filterCreated(e.target.value));
         setCurrentPage(1);
-        setFilter()
+        setRefresh()
      }
      
-     //cramos handleFilterByTemp para despachar la accion filterTems() de actions
+     //cramos handleFilterByTemp para despachar la accion filterTemps() de actions
      function handleFilterByTemp(e){
         e.preventDefault();
         dispatch(filterTemps(e.target.value));
         setCurrentPage(1);
-        setFilter()
+        setRefresh()
       }
 
 
-     //creamos handleOrderBy para despachar orderByName() y orderByWeight() y para manejar el estado de pagina actual, orden y filtros
+     //creamos handleOrderBy para despachar orderByName() y orderByWeight() y para setear el estado order
      function handleOrderBy (e) {
         const val = e.target.value;
         if(val.includes('asc')) {
             dispatch(orderByName(val))
             setCurrentPage(1);
-            setOrder(`Ordered ${val}`)
+            setOrder(val)
         }
         if(val.includes('des')) {
             dispatch(orderByName(val))
             setCurrentPage(1);
-            setOrder(`Ordered ${val}`)
+            setOrder(val)
         }
         else {
             dispatch(orderByWeight(val))
             setCurrentPage(1);
-            setOrder(`Ordered ${val}`)
+            setOrder(val)
         }
-        setFilter()
+        setRefresh()
      }
 
      return (
@@ -110,10 +110,10 @@ export default function Home (){
                     Reload all dogs
                 </button>
             
-                <SearchBar value={filter}/>
+                <SearchBar/>
             
                     <div className={style.filters}>
-                        <select className={style.filter} onChange={e => handleOrderBy(e)} value={filter}>
+                        <select className={style.filter} onChange={e => handleOrderBy(e)} value={refresh}>
                             <option value='default' selected disabled>Order by</option>
                             <option disabled>Alphabetic</option>
                             <option value = 'asc'>A-Z</option>
@@ -122,14 +122,14 @@ export default function Home (){
                             <option value = 'hea'>Heavier</option>
                             <option value = 'lig'>Lighter</option>
                         </select>
-                        <select className={style.filter} onChange={e => handleFilterByTemp(e)} value={filter}>
+                        <select className={style.filter} onChange={e => handleFilterByTemp(e)} value={refresh}>
                             <option value='default' hidden>Temperaments</option>
                             {allTemps.map((e) => {
                                 return <option value={e.name} key={e.id}>{e.name}</option>
                             })}
                         </select>
-                        <select className={style.filter} onChange={e => handleFilterCreated(e)} value={filter}>
-                            <option value = 'default' selected='defaultValue' disabled>Default</option>
+                        <select className={style.filter} onChange={e => handleFilterCreated(e)} value={refresh}>
+                            <option value = 'default' selected disabled>Default</option>
                             <option value = 'existing'>Existing</option>
                             <option value = 'created'>Created</option>
                         </select>
