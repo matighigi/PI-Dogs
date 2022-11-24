@@ -63,6 +63,7 @@ export default function Home (){
 
      //creamos handleFilterCreated para despachar la accion filterCreated() de actions
      function handleFilterCreated (e) {
+        e.preventDefault();
         dispatch(filterCreated(e.target.value));
         setCurrentPage(1);
         setRefresh()
