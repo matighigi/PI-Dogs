@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 
 ReactDOM.render(
+  //  envolvemos nuestra aplicacion con un Provider que nos permite hacer que nuestra Store esté disponible para cualquier componente que requiera de su uso
   <Provider store = {store}>
   <React.StrictMode>
     <App />

@@ -94,7 +94,7 @@ export default function DogCreate() {
             name: input.name,
             height: avgHeight.toFixed(2),
             weight: avgWeight.toFixed(2),
-            life_span: input.life_span,
+            life_span: input.life_span + ' years',
             temperaments: input.temperaments,
             image: img
         }

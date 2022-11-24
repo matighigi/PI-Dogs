@@ -16,7 +16,8 @@ export default function SearchBar() {
     const handleInputChange = (e) => {
         e.preventDefault()
         setName(e.target.value)
-        console.log(name)
+        console.log(name)//lo que guarda el estado a medida que escribimos en el input
+
     }
     //creamos un handleSubmit para despachar la accion getNameDogs de actions pasandole el valor name del estado recibido en el input
     const handleSubmit = (e) => {
@@ -30,7 +31,7 @@ export default function SearchBar() {
             className={style.input}
             type = 'text'
             placeholder="Search..."
-            onChange={e => handleInputChange(e)} />
+            onChange={e => handleInputChange(e)}/>
 
             <button className={style.btn} type='submit' onClick={e => handleSubmit(e)} setName>Search</button>
         </div>

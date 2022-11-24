@@ -4,11 +4,16 @@ import { GET_DOGS, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_WEIGHT, GET_NAME_DOGS
 //me traigo todos los perros de la ruta del back
 export const getDogs = () => {
     return async function(dispatch){
-        var json = await axios('http://localhost:3001/dogs');
-        return dispatch({
-            type: GET_DOGS,
-            payload: json.data
-        })
+        try {
+            var json = await axios('http://localhost:3001/dogs');
+            return dispatch({
+                type: GET_DOGS,
+                payload: json.data
+            }) 
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 }
 //me traigo un perro especifico con el nombre de la ruta del back
@@ -22,6 +27,7 @@ export const getNameDogs = (name) => {
           }) 
         } catch (error) {
             console.log(error)
+            return alert('Dog not found')
         }
         
     }
@@ -29,26 +35,34 @@ export const getNameDogs = (name) => {
 //me traigo todos los temperamentos de la ruta del back
 export const getTemperaments = () => {
     return async function (dispatch) {
-        const json = await axios('http://localhost:3001/temperaments')
-        return (
-            dispatch({
-                type: GET_TEMPERAMENTS,
-                payload: json.data
-            })
-        )
+        try {
+            const json = await axios('http://localhost:3001/temperaments')
+            return (
+                dispatch({
+                    type: GET_TEMPERAMENTS,
+                    payload: json.data
+                })
+            )
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 // console.log(getTemperaments());
+
 //me traigo el post de la ruta del back
 export const postDog = (payload) => {
     return async function (dispatch) {
-        const response = await axios.post('http://localhost:3001/dogs', payload)
-        console.log(response)
-        // return response;
-        return dispatch({
-            type: POST_DOG,
-            payload: response.data
-        })
+        try {
+            const response = await axios.post('http://localhost:3001/dogs', payload)
+            return dispatch({
+                type: POST_DOG,
+                payload: response.data
+            }) 
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 }
 //creo las acciones de los filtros
