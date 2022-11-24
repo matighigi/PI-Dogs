@@ -21,7 +21,7 @@ export default function Home (){
      const allTemps = useSelector((state) => state.temperaments)
      //  console.log(allTemps);
 
-     //configuramos los estados para setear los filtros y posteriormente resetear los mismos y los ordenamientos
+     //configuramos el estado para setear los filtros y posteriormente resetear los mismos y los ordenamientos
      const [refresh, setRefresh] = useState()
      //configuramos el estado para setear los ordenamientos
      const [order, setOrder] = useState()

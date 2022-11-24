@@ -30,6 +30,7 @@
 
 .filters{
     margin-right: 46.5%;
+    
 }
 
 .filter{
@@ -39,6 +40,7 @@
     border-radius: 4px;
     /* background-color: rgb(178, 208, 114); */
     background-color: rgb(235, 154, 133);
+    cursor: pointer;
 }
 
 .NavBar{
