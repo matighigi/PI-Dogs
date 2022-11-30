@@ -5,7 +5,7 @@ import { GET_DOGS, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_WEIGHT, GET_NAME_DOGS
 export const getDogs = () => {
     return async function(dispatch){
         try {
-            var json = await axios('http://localhost:3001/dogs');
+            var json = await axios('/dogs');
             return dispatch({
                 type: GET_DOGS,
                 payload: json.data
@@ -20,7 +20,7 @@ export const getDogs = () => {
 export const getNameDogs = (name) => {
     return async function(dispatch){
         try {
-          var json = await axios('http://localhost:3001/dogs?name=' + name);
+          var json = await axios('/dogs?name=' + name);
           return dispatch ({
             type: GET_NAME_DOGS,
             payload: json.data
@@ -36,7 +36,7 @@ export const getNameDogs = (name) => {
 export const getTemperaments = () => {
     return async function (dispatch) {
         try {
-            const json = await axios('http://localhost:3001/temperaments')
+            const json = await axios('/temperaments')
             return (
                 dispatch({
                     type: GET_TEMPERAMENTS,
@@ -54,7 +54,7 @@ export const getTemperaments = () => {
 export const postDog = (payload) => {
     return async function (dispatch) {
         try {
-            const response = await axios.post('http://localhost:3001/dogs', payload)
+            const response = await axios.post('/dogs', payload)
             return dispatch({
                 type: POST_DOG,
                 payload: response.data
@@ -95,7 +95,7 @@ export const orderByWeight = (payload) => {
 export const getDetail = (id) => {
     return async function (dispatch) {
         try {
-            var json = await axios('http://localhost:3001/dogs/' + id);
+            var json = await axios('/dogs/' + id);
             return dispatch({
                 type: GET_DETAIL,
                 payload: json.data
